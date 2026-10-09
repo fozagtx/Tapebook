@@ -1,0 +1,151 @@
+{
+  "chainId": 196,
+  "factory": "0x1f09DAeFA827f02CBb40967cc91b259763760761",
+  "deployer": "0x3080ba576b3eac818696b805ff5b461a7ca386ed",
+  "tapebook": {
+    "circuits": "0x20CEC0Ca666B43e0CbCDBb50b0b6fdf6F2D7Dd13",
+    "transistors": "0x3F35dc7C698bAE36F32ae83bABAEce7e3BF2D039",
+    "createTx": "0x0d45a9ca3753c1cdd93b26f0e7c7eab995b0668828098a133d4ecfd43f14706d",
+    "story": "Tapebook: a bug bounty layer for TapeOut circuits on X Layer. Supply: 1,000,000 transistors, and this supply is the cap (no other cap). Price: 0.0001 OKB per transistor. Every Tapebook spec and miter circuit is taped out on this processor and burns TBOOK NAND. A claim says a circuit behaves exactly like a spec on every input; one input where they disagree breaks it. Tapebook launches no token and has no trading component.",
+    "supply": "1000000",
+    "mintPrice": "100000000000000"
+  },
+  "circuits": {
+    "ADD8C": {
+      "id": "1",
+      "tx": "0x78dba194b3ec3a184718397e970104d9ce2ed661f715dbd1eb8e93042740837d",
+      "mintTx": "0x06bfb60a40330c7eb14bd62af64678da97cb3a0b1379ca49e055ec0bb26bccf2",
+      "nIn": 17,
+      "nOut": 9,
+      "nand": 90,
+      "kind": "spec"
+    },
+    "MAJ5": {
+      "id": "2",
+      "tx": "0x9d2f75f611af9fb37609cf8c3e4726a4b0b2e7ba64ecda733e07a326d8217710",
+      "mintTx": "0x3303f1b3e1b9a3b69edbedd461bbe23c97e957826f49f077cd29049306b60d60",
+      "nIn": 5,
+      "nOut": 1,
+      "nand": 51,
+      "kind": "spec"
+    },
+    "EQ8": {
+      "id": "3",
+      "tx": "0xc673168a77520063dcda3931a9b107170c94ba1c6a5d108c007011ec5e53a473",
+      "mintTx": "0x46130aefc543cab861b5f33883d76edacdfdb652badbb2662ec5733d6d0e9fbb",
+      "nIn": 16,
+      "nOut": 1,
+      "nand": 56,
+      "kind": "spec"
+    },
+    "MUX8": {
+      "id": "4",
+      "tx": "0x81ce1d0b5e790b455751b4dda8ef30d0cae730af07b030303926dc9878d6e346",
+      "mintTx": "0x3188816da66d0467a91ac439785139fbec82814fd2a6ff80121f80131a209c68",
+      "nIn": 11,
+      "nOut": 1,
+      "nand": 30,
+      "kind": "spec"
+    },
+    "TARGET_A": {
+      "id": "5",
+      "tx": "0x1e2f0c61f3b841ffd8f2956a5081c9d3f51aa626324f7bc0486688251aeed55c",
+      "mintTx": "0xc281f82b9663c2a3b02d672071dcb32b960ab991e7de025cef514ca45ccf3152",
+      "nIn": 17,
+      "nOut": 9,
+      "nand": 122,
+      "kind": "target"
+    },
+    "TARGET_B": {
+      "id": "6",
+      "tx": "0x3be57ddf8025631d602f0b56ba1550b1595c9f753b3accec9f607d80c062848e",
+      "mintTx": "0xe5399c990a1ff067d779c129d4b09d41caed4c876e9ee05ccd139cdea3979569",
+      "nIn": 17,
+      "nOut": 9,
+      "nand": 122,
+      "kind": "target"
+    },
+    "MITER_TARGET_A": {
+      "id": "7",
+      "tx": "0x",
+      "nIn": 17,
+      "nOut": 1,
+      "nand": 60,
+      "kind": "miter"
+    },
+    "MITER_TARGET_B": {
+      "id": "8",
+      "tx": "0x",
+      "nIn": 17,
+      "nOut": 1,
+      "nand": 60,
+      "kind": "miter"
+    }
+  },
+  "claims": {
+    "address": "0xF225AEc83B2738b791b3CD76006e248814bE55F0",
+    "tx": "0x67df01bccc93d9896ea6633d3b5672b769106b527df05f6e10445cf10fb61c9e",
+    "args": [
+      "0x1f09DAeFA827f02CBb40967cc91b259763760761",
+      "0x20CEC0Ca666B43e0CbCDBb50b0b6fdf6F2D7Dd13",
+      [
+        "1",
+        "1",
+        "2",
+        "2",
+        "3",
+        "3",
+        "4",
+        "4"
+      ],
+      [
+        "0x020300",
+        "0xff0101",
+        "0x15",
+        "0x03",
+        "0x5a5a",
+        "0x0102",
+        "0x4006",
+        "0x4005"
+      ],
+      [
+        "0x0500",
+        "0x0101",
+        "0x01",
+        "0x00",
+        "0x01",
+        "0x00",
+        "0x01",
+        "0x00"
+      ]
+    ]
+  },
+  "specs": {
+    "ADD8C": {
+      "tx": "0xa48645ec1672a212fa0cd5a437862b886a402889410fbdb870f50c61f6a00de7"
+    },
+    "MAJ5": {
+      "tx": "0x0a741c8f12937111586131244b5e7f6230dc99734dc23a218300e7e69da7f195"
+    },
+    "EQ8": {
+      "tx": "0x2d7bf3916dbe41ddea2fc30ea0a67189cbd1f0d60a3e2e55d6e2fde69d891f6a"
+    },
+    "MUX8": {
+      "tx": "0xbe4856507b5242ce9ff61e13f8da2d8afdcc1bb8d67a756fa3e30292ecca9098"
+    }
+  },
+  "seedClaims": {
+    "A": {
+      "claimId": "1",
+      "miter": "7",
+      "tx": "0x5b082593f53013ee604063b14c73ed3a268bc1e6a9d0eded73874acb122d5e61",
+      "bond": "10000000000000000"
+    },
+    "B": {
+      "claimId": "2",
+      "miter": "8",
+      "tx": "0x47de884cbe351caae5587fa262b934517b08350eb671862d06374d74cec396b2",
+      "bond": "2000000000000000"
+    }
+  }
+}

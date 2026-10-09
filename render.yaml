@@ -22,20 +22,17 @@ services:
         value: "22"
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
-      # Addresses from contracts/deployments/196.json after the mainnet deploy (scripts 01–04).
-      # NEXT_PUBLIC_* values are baked in at build time: redeploy after changing them.
+      # X Layer mainnet addresses (contracts/deployments/196.json). These are also the defaults in
+      # web/lib/config.ts; NEXT_PUBLIC_* values are baked in at build time, so redeploy after changing them.
       - key: NEXT_PUBLIC_CLAIMS_ADDRESS
-        sync: false
+        value: "0xF225AEc83B2738b791b3CD76006e248814bE55F0"
       - key: NEXT_PUBLIC_TAPEBOOK_CIRCUITS
-        sync: false
+        value: "0x20CEC0Ca666B43e0CbCDBb50b0b6fdf6F2D7Dd13"
       - key: NEXT_PUBLIC_TAPEBOOK_TRANSISTORS
-        sync: false
-      # Optional: block of the TapeOut factory deployment (bounds the upgrade-history log scan).
+        value: "0x3F35dc7C698bAE36F32ae83bABAEce7e3BF2D039"
+      # Block the TapeOut factory was deployed at; bounds the upgrade-history log scan at build time.
       - key: NEXT_PUBLIC_TAPEOUT_DEPLOY_BLOCK
-        sync: false
-      # Optional: WalletConnect project id for mobile wallets.
-      - key: NEXT_PUBLIC_WC_PROJECT_ID
-        sync: false
-      # Optional: server-side RPC for /api/index and /api/versions (defaults to the public X Layer RPCs).
-      - key: XLAYER_RPC_URL
-        sync: false
+        value: "70995047"
+      # Optional, add in the Render dashboard if needed:
+      #   NEXT_PUBLIC_WC_PROJECT_ID         WalletConnect project id for mobile wallets
+      #   XLAYER_RPC_URL                    server-side RPC for /api/index and /api/versions (defaults to public X Layer RPCs)

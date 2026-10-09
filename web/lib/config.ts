@@ -4,6 +4,16 @@ import { xLayer } from 'viem/chains';
 
 const MULTICALL3: Address = '0xcA11bde05977b3631167028862bE2a173976CA11';
 
+/** X Layer mainnet deployment (contracts/deployments/196.json). NEXT_PUBLIC_* env vars override. */
+export const MAINNET = {
+  factory: '0x1f09daefa827f02cbb40967cc91b259763760761',
+  /** Block the factory proxy first had code (binary-searched via eth_getCode). */
+  factoryDeployBlock: 70_995_047n,
+  claims: '0xF225AEc83B2738b791b3CD76006e248814bE55F0',
+  circuits: '0x20CEC0Ca666B43e0CbCDBb50b0b6fdf6F2D7Dd13',
+  transistors: '0x3F35dc7C698bAE36F32ae83bABAEce7e3BF2D039',
+} as const;
+
 function addr(v: string | undefined): Address | null {
   if (!v) return null;
   try {
@@ -63,18 +73,24 @@ export const FACTORIES: FactoryConfig[] = IS_LOCAL
   : [
       {
         label: 'TapeOut v1',
-        address: getAddress('0x1f09daefa827f02cbb40967cc91b259763760761'),
-        deployBlock: process.env.NEXT_PUBLIC_TAPEOUT_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_TAPEOUT_DEPLOY_BLOCK) : null,
-        claims: addr(process.env.NEXT_PUBLIC_CLAIMS_ADDRESS),
+        address: getAddress(MAINNET.factory),
+        deployBlock: process.env.NEXT_PUBLIC_TAPEOUT_DEPLOY_BLOCK ? BigInt(process.env.NEXT_PUBLIC_TAPEOUT_DEPLOY_BLOCK) : MAINNET.factoryDeployBlock,
+        claims: addr(process.env.NEXT_PUBLIC_CLAIMS_ADDRESS) ?? getAddress(MAINNET.claims),
       },
     ];
 
 /** The Tapebook processor and its claims contract (first factory). */
-export const TAPEBOOK = {
-  claims: addr(process.env.NEXT_PUBLIC_CLAIMS_ADDRESS),
-  circuits: addr(process.env.NEXT_PUBLIC_TAPEBOOK_CIRCUITS),
-  transistors: addr(process.env.NEXT_PUBLIC_TAPEBOOK_TRANSISTORS),
-};
+export const TAPEBOOK = IS_LOCAL
+  ? {
+      claims: addr(process.env.NEXT_PUBLIC_CLAIMS_ADDRESS),
+      circuits: addr(process.env.NEXT_PUBLIC_TAPEBOOK_CIRCUITS),
+      transistors: addr(process.env.NEXT_PUBLIC_TAPEBOOK_TRANSISTORS),
+    }
+  : {
+      claims: addr(process.env.NEXT_PUBLIC_CLAIMS_ADDRESS) ?? getAddress(MAINNET.claims),
+      circuits: addr(process.env.NEXT_PUBLIC_TAPEBOOK_CIRCUITS) ?? getAddress(MAINNET.circuits),
+      transistors: addr(process.env.NEXT_PUBLIC_TAPEBOOK_TRANSISTORS) ?? getAddress(MAINNET.transistors),
+    };
 
 export const INDEX = {
   /** Calls per Multicall3 aggregate3 request. */
