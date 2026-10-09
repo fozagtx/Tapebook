@@ -37,6 +37,11 @@ export function VersionBanner() {
           upgradeable (not sealed)
         </span>
       ) : null}
+      {!v.historyComplete && (
+        <span className="text-fg-muted" title={v.errors.join('\n')}>
+          history unavailable
+        </span>
+      )}
       <span className="text-fg-muted">at block {v.block.number}</span>
     </div>
   );

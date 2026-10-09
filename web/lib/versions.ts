@@ -140,10 +140,13 @@ export async function readVersions(
 
   // Change history from logs: Upgraded on the factory proxy and both beacons, Sealed and fee setters.
   let from = factory.deployBlock;
-  if (from === null) from = await settle(findDeployBlock(client, f, bn), errors, 'factory deploy block');
   const history: Change[] = [];
   let complete = false;
-  if (from !== null) {
+  if (!VERSIONS.scanHistory) {
+    errors.push('upgrade history not scanned: public X Layer RPCs cap eth_getLogs at 100 blocks (set XLAYER_RPC_URL to an archive provider)');
+  } else {
+    if (from === null) from = await settle(findDeployBlock(client, f, bn), errors, 'factory deploy block');
+    if (from !== null) {
     const addresses = [f, tBeacon, cBeacon].filter(Boolean) as Address[];
     const scan = await scanLogs(client, addresses, from, bn, errors);
     complete = scan.complete;
@@ -166,6 +169,7 @@ export async function readVersions(
       if (kind) history.push({ kind, block: BigInt(log.blockNumber).toString(), tx: log.transactionHash, value });
     }
     history.sort((a, b) => (BigInt(a.block) < BigInt(b.block) ? -1 : BigInt(a.block) > BigInt(b.block) ? 1 : 0));
+    }
   }
   const lastCircuit = [...history].reverse().find((h) => h.kind === 'circuitImpl');
 

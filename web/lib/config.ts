@@ -118,6 +118,8 @@ export const VERSIONS = {
   logChunk: 100_000n,
   minLogChunk: 500n,
   concurrency: 4,
+  /** The upgrade-history log scan needs an RPC that allows wide eth_getLogs ranges. The public X Layer RPCs cap eth_getLogs at 100 blocks, so the scan is only attempted when XLAYER_RPC_URL points at a provider that supports it. */
+  scanHistory: Boolean(process.env.XLAYER_RPC_URL),
 };
 
 /** Contract constants mirrored for display; the contract enforces them. */
