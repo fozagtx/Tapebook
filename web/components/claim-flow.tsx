@@ -218,7 +218,7 @@ export function ClaimFlow() {
                     {
                       title: 'Tape out the miter',
                       done: d.miterId !== null,
-                      detail: d.miterId !== null ? <>Miter circuit #{d.miterId.toString()}.</> : `Netlist of ${(d.miter!.netlist.length - 2) / 2} bytes; TapeOut fee ${okb(d.tapeoutFee, 6)}.`,
+                      detail: d.miterId !== null ? <>Miter circuit #{d.miterId.toString()}.</> : d.miter ? `Netlist of ${(d.miter.netlist.length - 2) / 2} bytes; TapeOut fee ${okb(d.tapeoutFee, 6)}.` : null,
                       action: d.miter && (
                         <TxAction
                           req={{ address: tb, abi: circuitsAbi, functionName: 'tapeout', args: [d.miter.netlist, d.miter.nIn, 1], value: d.tapeoutFee, label: `tapeout(miter, ${d.miter.nIn}, 1)` }}

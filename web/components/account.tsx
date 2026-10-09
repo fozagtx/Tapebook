@@ -12,7 +12,7 @@ import { useMounted } from '@/lib/hooks';
 import { useClaims, useCredit } from '@/lib/reads';
 import { ClaimCard } from './claim-card';
 import { Card, Loading, PageTitle, RpcError, StatusBadge } from './common';
-import { TxAction, WriteGate } from './wallet';
+import { ConnectButton, TxAction, WriteGate } from './wallet';
 
 export function Account() {
   const mounted = useMounted();
@@ -20,12 +20,21 @@ export function Account() {
   const { disconnect } = useDisconnect();
 
   if (!mounted) return <Loading what="Checking your wallet" />;
-  if (!isConnected || !address || chainId !== CHAIN.id)
+  if (!isConnected || !address)
     return (
       <>
         <PageTitle eyebrow="Account" title="Connect your wallet." />
         <Card className="flex max-w-[var(--max-width-form)] flex-col gap-4">
-          <p className="card-desc">Post claims, manage bonds, hunt and collect payouts.</p>
+          <p className="card-desc">Connect a wallet to see your claims, bonds and balances.</p>
+          <ConnectButton />
+        </Card>
+      </>
+    );
+  if (chainId !== CHAIN.id)
+    return (
+      <>
+        <PageTitle eyebrow="Account" title="Wrong network." />
+        <Card className="flex max-w-[var(--max-width-form)] flex-col gap-4">
           <WriteGate>
             <span />
           </WriteGate>

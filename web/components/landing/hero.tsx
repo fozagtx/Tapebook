@@ -2,10 +2,10 @@
 
 // The landing hero is read-only: nothing here needs a wallet (PRD 12a; wallet actions live in /account).
 import { motion, useReducedMotion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { AsciiSpiral } from '@/components/ui/ascii-shapes';
 import AnimatedButton from '@/components/ui/animated-button';
 import TextAnimation from '@/components/ui/staggerText';
-import { useOpenBook } from '@/components/wallet';
 import { primaryVersions, useVersions } from '@/lib/api';
 import { DASH, shortAddr } from '@/lib/format';
 import { EASE, SLOWER, useRise } from './motion';
@@ -13,7 +13,7 @@ import { EASE, SLOWER, useRise } from './motion';
 const HEADLINE = 'The bug bounty layer for TapeOut circuits.';
 
 export function Hero() {
-  const book = useOpenBook();
+  const router = useRouter();
   const reduce = useReducedMotion();
   const after = 0.1 + HEADLINE.split(' ').length * 0.04 + 0.3; // once the headline has landed
   const rise = useRise(12, after);
@@ -30,10 +30,10 @@ export function Hero() {
         </motion.p>
         <motion.div {...rise} className="mt-8 flex flex-wrap items-center gap-4">
           <AnimatedButton
-            onClick={book.onClick}
+            onClick={() => router.push('/book')}
             className="h-[var(--btn-height-lg)] rounded-[var(--radius-pill)] border-2 border-accent-dark bg-moss-light px-7 text-[var(--btn-primary-text)] shadow-sm [--shine:var(--color-cyan-light)] hover:bg-olive"
           >
-            {book.label}
+            Open the Book
           </AnimatedButton>
           <span
             className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] border-2 border-line bg-bg-surface px-3 py-1 text-[length:var(--text-2xs)] text-fg-secondary"
