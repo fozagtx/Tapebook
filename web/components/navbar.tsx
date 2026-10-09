@@ -7,14 +7,12 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { SpotlightNavbar } from '@/components/ui/spotlight-navbar';
-import { REPO_URL } from '@/lib/config';
 import { ConnectButton } from './wallet';
 
 const LINKS = [
   { label: 'How it works', href: '/#how-it-works' },
   { label: 'Book', href: '/book' },
   { label: 'Specs', href: '/specs' },
-  { label: 'Docs', href: `${REPO_URL}#readme` },
 ];
 
 export function Navbar() {
