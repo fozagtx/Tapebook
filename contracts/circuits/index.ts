@@ -1,5 +1,5 @@
 // The six first-party circuits taped out on the Tapebook processor (PRD section 6).
-import type { Built } from '../../core/netlist';
+import type { Built } from '../core/netlist';
 import { buildAdd8c, add8cRef } from './add8c';
 import { buildMaj5, maj5Ref } from './maj5';
 import { buildEq8, eq8Ref } from './eq8';

@@ -182,15 +182,3 @@ html {
 .tb-faq li button[aria-expanded="true"] + div { border-left-color: var(--color-moss); background: var(--color-bg-surface); }
 .tb-faq li button + div > div > div { color: var(--color-text-secondary); font-size: var(--text-base); }
 
-/* Hero netlist: a moss pulse runs the circuit's longest path every 4s. */
-@keyframes netlist-pulse {
-  from { stroke-dashoffset: 100; }
-  to { stroke-dashoffset: 0; }
-}
-.netlist-pulse {
-  stroke-dasharray: 10 90;
-  animation: netlist-pulse 4s linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .netlist-pulse { animation: none; stroke-dasharray: none; opacity: 0; }
-}

@@ -1,6 +1,6 @@
 // ADD8C spec: a = pins 0–7, b = pins 8–15, cin = pin 16 → sum = pins 0–7, cout = pin 8.
 // Ripple carry with the 9-NAND full adder, then the two-pass output stage. 90 NAND.
-import { NetlistBuilder, type Built } from '../../core/netlist';
+import { NetlistBuilder, type Built } from '../core/netlist';
 
 export function fullAdder9(b: NetlistBuilder, a: number, x: number, c: number): { sum: number; cout: number } {
   const n1 = b.nand(a, x);

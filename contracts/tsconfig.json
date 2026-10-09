@@ -9,7 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "types": ["node", "mocha", "chai"]
+    "types": ["node", "mocha", "chai", "chai-as-promised"]
   },
-  "include": ["hardhat.config.ts", "scripts", "test", "circuits", "abi", "../core"]
+  "include": ["hardhat.config.ts", "scripts", "test", "circuits", "abi", "core", "artifacts/**/*.d.ts"]
 }

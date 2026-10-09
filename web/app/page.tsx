@@ -7,7 +7,7 @@ import { Hero } from '@/components/landing/hero';
 import { HowItWorks } from '@/components/landing/how-it-works';
 import { LandingFooter } from '@/components/landing/landing-footer';
 import { LandingImage } from '@/components/landing/landing-image';
-import { NetlistArt } from '@/components/landing/netlist-art';
+import { BreakDemo } from '@/components/landing/break-demo';
 import { WhyTrust } from '@/components/landing/why-trust';
 import { ForceLight } from '@/components/theme-toggle';
 
@@ -29,7 +29,7 @@ export default function Landing() {
       <ForceLight />
       <main className="flex-1">
         <Hero />
-        <NetlistArt />
+        <BreakDemo />
         {hero && <LandingImage width={hero.width} height={hero.height} />}
         <div className="mt-20">
           <FiguresStrip />

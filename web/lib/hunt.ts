@@ -2,7 +2,7 @@
 // TapebookClaims.differs(claimId, x) through Multicall3 eth_call batches at one block.
 // A result is a local observation of the chain at that block.
 import { encodeAbiParameters, keccak256, type Address, type Hex, type PublicClient } from 'viem';
-import { bytesToHex, packInt } from '../../core/bits';
+import { bytesToHex, packInt } from '../../contracts/core/bits';
 import { tapebookClaimsAbi } from './abi';
 import { HUNT } from './config';
 

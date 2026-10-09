@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { parseEventLogs, type Hex } from 'viem';
 import { useConnection } from 'wagmi';
-import { countBurn, decode } from '../../core/netlist';
+import { countBurn, decode } from '../../contracts/core/netlist';
 import { circuitsAbi, tapebookClaimsAbi, transistorsAbi } from '@/lib/abi';
 import { useIndex } from '@/lib/api';
 import { publicClient } from '@/lib/chain';

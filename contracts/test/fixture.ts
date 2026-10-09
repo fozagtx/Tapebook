@@ -1,7 +1,7 @@
 // Local TapeOut stack: the vendored factory behind an ERC-1967 proxy, real beacons, real VM.
 import hre from 'hardhat';
 import { encodeFunctionData, getAddress, parseEther, type Address, type Hex } from 'viem';
-import { buildMiter } from '../../core/miter';
+import { buildMiter } from '../core/miter';
 import { SEEDS, SPEC_KEYS, seed, type SeedKey } from '../circuits';
 import { VECTORS, vectorBytes } from '../circuits/vectors';
 import { createCpu, mintAndTapeout, waitFor } from '../scripts/lib';

@@ -2,7 +2,7 @@
 // `differs` (TapeOut's eval via eth_call), then commit, wait one block, challenge.
 import hre from 'hardhat';
 import { encodeAbiParameters, keccak256 } from 'viem';
-import { bytesToHex, packInt } from '../../core/bits';
+import { bytesToHex, packInt } from '../core/bits';
 import { readDeployments, waitFor, writeDeployments } from './lib';
 
 async function main() {

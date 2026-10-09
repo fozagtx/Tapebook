@@ -1,6 +1,6 @@
 // MUX8 spec: data = pins 0–7, select = pins 8–10 → pin 0 = data[select].
 // Three levels of 2-to-1 muxes (4 NAND each), output stage. 30 NAND.
-import { NetlistBuilder, type Built } from '../../core/netlist';
+import { NetlistBuilder, type Built } from '../core/netlist';
 
 /** s ? hi : lo, 4 NAND. */
 export function mux2(b: NetlistBuilder, lo: number, hi: number, s: number): number {

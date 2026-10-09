@@ -1,7 +1,7 @@
 // VM conformance vectors stored in TapebookClaims at deploy (PRD section 15, measure 5).
 // Fixed inputs to the seed specs with outputs from their reference behaviour; after deploy,
 // `conformance()` re-evaluates them on chain with TapeOut's own eval.
-import { bytesToHex, packInt, type Hex } from '../../core/bits';
+import { bytesToHex, packInt, type Hex } from '../core/bits';
 import { seed, type SeedKey } from './index';
 
 export interface Vector {

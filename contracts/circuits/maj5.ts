@@ -1,6 +1,6 @@
 // MAJ5 spec: pins 0–4 → pin 0 is 1 when three or more inputs are 1.
 // Ten 3-input NAND terms, AND-reduced, inverted, output stage. 51 NAND.
-import { NetlistBuilder, type Built } from '../../core/netlist';
+import { NetlistBuilder, type Built } from '../core/netlist';
 
 export function buildMaj5(): Built {
   const b = new NetlistBuilder(5);

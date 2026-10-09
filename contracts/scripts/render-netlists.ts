@@ -4,10 +4,10 @@
 //   npx ts-node scripts/render-netlists.ts <outDir>
 import fs from 'node:fs';
 import path from 'node:path';
-import { decode, OP_NAND } from '../../core/netlist';
+import { decode, OP_NAND } from '../core/netlist';
 import { buildAdd8c } from '../circuits/add8c';
 import { buildTargetA } from '../circuits/targetA';
-import type { Built } from '../../core/netlist';
+import type { Built } from '../core/netlist';
 
 function svgOf(b: Built, size = 900): string {
   const els = decode(b.netlist, b.nIn);

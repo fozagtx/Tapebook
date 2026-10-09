@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   // Off on purpose: /api/index and /api/versions use `export const revalidate`, which is only
   // valid in the previous caching model (PRD section 9).
   cacheComponents: false,
-  // web/ imports ../core (netlist and miter encoding) and ../contracts/abi.
+  // web/ imports ../contracts/core (netlist and miter encoding) and ../contracts/abi.
   outputFileTracingRoot: root,
   turbopack: {
     root,

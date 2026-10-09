@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useMemo } from 'react';
 import { isAddress, keccak256, type Address } from 'viem';
 import { useConnection } from 'wagmi';
-import { countBurn, decode, refTargets } from '../../core/netlist';
+import { countBurn, decode, refTargets } from '../../contracts/core/netlist';
 import { useIndex } from '@/lib/api';
 import { TAPEBOOK } from '@/lib/config';
 import { DASH, dateTime, num } from '@/lib/format';

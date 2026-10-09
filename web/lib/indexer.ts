@@ -2,8 +2,8 @@
 // Multicall3 at one block. No database; the chain is the only store. Values that cannot be
 // read are null and render as "—".
 import { getAddress, keccak256, zeroAddress, type Address, type Hex, type PublicClient } from 'viem';
-import { decode, OP_REF } from '../../core/netlist';
-import { buildMiter } from '../../core/miter';
+import { decode, OP_REF } from '../../contracts/core/netlist';
+import { buildMiter } from '../../contracts/core/miter';
 import { circuitFactoryAbi, circuitsAbi, tapebookClaimsAbi, transistorsAbi } from './abi';
 import { INDEX, type FactoryConfig } from './config';
 

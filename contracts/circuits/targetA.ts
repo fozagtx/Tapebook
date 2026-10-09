@@ -1,6 +1,6 @@
 // Target A: a Tapebook reference target with ADD8C's pin layout, built differently.
 // Per bit: two half adders (5 NAND each) and an OR (3 NAND); then the output stage. 122 NAND.
-import { NetlistBuilder, type Built } from '../../core/netlist';
+import { NetlistBuilder, type Built } from '../core/netlist';
 
 export function halfAdder5(b: NetlistBuilder, a: number, x: number): { sum: number; carry: number } {
   const n1 = b.nand(a, x);

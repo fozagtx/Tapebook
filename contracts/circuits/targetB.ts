@@ -1,6 +1,6 @@
 // Target B: Target A with one planted fault — output pin 8 is the carry out of bit 6
 // instead of bit 7. 122 NAND. It differs from ADD8C on exactly 32,768 of 131,072 inputs.
-import type { Built } from '../../core/netlist';
+import type { Built } from '../core/netlist';
 import { buildAdderA } from './targetA';
 
 export function buildTargetB(): Built {

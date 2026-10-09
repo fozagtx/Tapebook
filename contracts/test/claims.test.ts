@@ -1,9 +1,9 @@
 import hre from 'hardhat';
 import { expect } from 'chai';
 import { loadFixture, mine, time } from '@nomicfoundation/hardhat-toolbox-viem/network-helpers';
-import { encodeAbiParameters, keccak256, parseEther, parseEventLogs, toFunctionSelector, type Address, type Hex } from 'viem';
-import { NetlistBuilder } from '../../core/netlist';
-import { bytesToHex, packInt } from '../../core/bits';
+import { encodeAbiParameters, encodeFunctionData, keccak256, parseEther, parseEventLogs, toFunctionSelector, type Address, type Hex } from 'viem';
+import { NetlistBuilder } from '../core/netlist';
+import { bytesToHex, packInt } from '../core/bits';
 import { halfAdder5 } from '../circuits/targetA';
 import { mintAndTapeout } from '../scripts/lib';
 import { deployClaimsWithMiters, tapeoutMiter } from './fixture';
@@ -301,7 +301,7 @@ describe('TapebookClaims', function () {
       const pc = await hre.viem.getPublicClient();
       await tx(t.claims.write.post([P, id, t.ids.ADD8C, miterId, DAY], { account: t.me, value: parseEther('0.1') }));
       const claimId = await t.claims.read.claimCount();
-      const evalGas = await pc.estimateContractGas({ address: P, abi: t.circuits.abi, functionName: 'eval', args: [miterId, X383] });
+      const evalGas = await pc.estimateGas({ to: P, data: encodeFunctionData({ abi: t.circuits.abi, functionName: 'eval', args: [miterId, X383] }) });
       await commitAndWait(t, claimId, X383, t.hunter);
       const receipt = await tx(t.claims.write.challenge([claimId, X383], { account: t.hunter }));
       expect(receipt.status).to.equal('success');

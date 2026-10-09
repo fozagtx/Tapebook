@@ -2,7 +2,7 @@
 // Target A's claim stays OPEN; Target B's is meant to be broken through Hunt.
 import hre from 'hardhat';
 import { formatEther, parseEventLogs } from 'viem';
-import { buildMiter } from '../../core/miter';
+import { buildMiter } from '../core/miter';
 import { SEED_CLAIMS } from './constants';
 import { context, log } from './context';
 import { findCircuit, mintAndTapeout, waitFor, writeDeployments } from './lib';

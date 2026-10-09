@@ -2,7 +2,7 @@ import hre from 'hardhat';
 import { expect } from 'chai';
 import { loadFixture, mine, time } from '@nomicfoundation/hardhat-toolbox-viem/network-helpers';
 import { encodeAbiParameters, keccak256, parseEther, type Address, type Hex } from 'viem';
-import { bytesToHex, packInt } from '../../core/bits';
+import { bytesToHex, packInt } from '../core/bits';
 import { seed } from '../circuits';
 import { mintAndTapeout } from '../scripts/lib';
 import { deployClaimsWithMiters, tapeoutMiter } from './fixture';

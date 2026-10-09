@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { isAddress, parseEther, type Address } from 'viem';
 import { useConnection } from 'wagmi';
-import { buildMiter, miterNand } from '../../core/miter';
+import { buildMiter, miterNand } from '../../contracts/core/miter';
 import { circuitsAbi, tapebookClaimsAbi, transistorsAbi } from '@/lib/abi';
 import { useIndex } from '@/lib/api';
 import { publicClient } from '@/lib/chain';

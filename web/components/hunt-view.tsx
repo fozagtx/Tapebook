@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import type { Hex } from 'viem';
 import { useConnection } from 'wagmi';
-import { bytesToHex, hexToBytes, isCanonical, packInt, unpackInt } from '../../core/bits';
+import { bytesToHex, hexToBytes, isCanonical, packInt, unpackInt } from '../../contracts/core/bits';
 import { tapebookClaimsAbi } from '@/lib/abi';
 import { publicClient } from '@/lib/chain';
 import { statusOf } from '@/lib/claims';

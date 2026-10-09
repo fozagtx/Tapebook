@@ -1,6 +1,6 @@
 import hre from 'hardhat';
 import type { Address, Hex } from 'viem';
-import { hexToBytes } from '../../core/bits';
+import { hexToBytes } from '../core/bits';
 
 /** Deterministic PRNG (mulberry32) so random tests are reproducible from their seed. */
 export function rng(seed: number) {
@@ -60,9 +60,10 @@ export async function sweepEval(
   async function worker() {
     while (next < jobs.length) {
       const [from, count] = jobs[next++];
+      // readContract forwards `gas` to eth_call; its types only omit it for view functions.
       const res: Hex = await sweep.read.sweepFull([circuits, id, BigInt(nIn), BigInt(outBytes), BigInt(from), BigInt(count)], {
         gas: 900_000_000n,
-      });
+      } as never);
       const b = hexToBytes(res);
       for (let k = 0; k < count; k++) {
         let v = 0;

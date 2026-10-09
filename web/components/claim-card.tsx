@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { keccak256, parseEther, type Address, type Hex } from 'viem';
 import { useConnection } from 'wagmi';
-import { hexToBytes, unpackInt } from '../../core/bits';
+import { hexToBytes, unpackInt } from '../../contracts/core/bits';
 import { tapebookClaimsAbi } from '@/lib/abi';
 import { logicChanged, statusOf } from '@/lib/claims';
 import { CHAIN, LIMITS, TAPEBOOK } from '@/lib/config';
