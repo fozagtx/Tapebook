@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { isAddress, keccak256, type Address } from 'viem';
-import { useConnection } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { countBurn, decode, refTargets } from '../../contracts/core/netlist';
 import { useIndex } from '@/lib/api';
 import { TAPEBOOK } from '@/lib/config';
@@ -19,7 +19,7 @@ export function CircuitView({ cpu: cpuParam, id: idParam }: { cpu: string; id: s
   const circuit = useCircuit(cpu, id);
   const claims = useClaims();
   const { data: index } = useIndex();
-  const { address } = useConnection();
+  const { address } = useAccount();
   const snap = index?.ok ? index : null;
 
   const decoded = useMemo(() => {

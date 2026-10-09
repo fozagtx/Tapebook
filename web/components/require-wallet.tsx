@@ -2,7 +2,7 @@
 
 // Every app page sits behind a connected wallet on the right network; only the landing page is public.
 import type { ReactNode } from 'react';
-import { useConnection } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { CHAIN } from '@/lib/config';
 import { useMounted } from '@/lib/hooks';
 import { Card, Loading } from './common';
@@ -10,7 +10,7 @@ import { WriteGate } from './wallet';
 
 export function RequireWallet({ children }: { children: ReactNode }) {
   const mounted = useMounted();
-  const { isConnected, chainId, status } = useConnection();
+  const { isConnected, chainId, status } = useAccount();
   if (!mounted || status === 'reconnecting' || status === 'connecting') return <Loading what="Checking your wallet" />;
   if (isConnected && chainId === CHAIN.id) return <>{children}</>;
   return (

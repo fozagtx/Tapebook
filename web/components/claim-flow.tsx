@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { isAddress, parseEther, type Address } from 'viem';
-import { useConnection } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { buildMiter, miterNand } from '../../contracts/core/miter';
 import { circuitsAbi, tapebookClaimsAbi, transistorsAbi } from '@/lib/abi';
 import { useIndex } from '@/lib/api';
@@ -26,7 +26,7 @@ export function ClaimFlow() {
   const [specText, setSpecText] = useState(params.get('spec') ?? '');
   const [bondText, setBondText] = useState('0');
   const [lockDays, setLockDays] = useState('7');
-  const { address } = useConnection();
+  const { address } = useAccount();
   const { data: index } = useIndex();
   const snap = index?.ok ? index : null;
 

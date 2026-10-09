@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useState } from 'react';
 import { keccak256, parseEther, type Address, type Hex } from 'viem';
-import { useConnection } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { hexToBytes, unpackInt } from '../../contracts/core/bits';
 import { tapebookClaimsAbi } from '@/lib/abi';
 import { logicChanged, statusOf } from '@/lib/claims';
@@ -79,7 +79,7 @@ export function ClaimCard({
   showTarget?: boolean;
   onHuntPage?: boolean;
 }) {
-  const { address } = useConnection();
+  const { address } = useAccount();
   const spec = useSpec(BigInt(claim.specId));
   const credit = useCredit(address);
   const [topUp, setTopUp] = useState('');

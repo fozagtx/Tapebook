@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 import type { Hex } from 'viem';
-import { useConnection } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { bytesToHex, hexToBytes, isCanonical, packInt, unpackInt } from '../../contracts/core/bits';
 import { tapebookClaimsAbi } from '@/lib/abi';
 import { publicClient } from '@/lib/chain';
@@ -60,7 +60,7 @@ export function HuntView({ claimId: idParam }: { claimId: string }) {
   const claim = q.data?.claim ?? null;
   const target = useCircuit(claim?.cpu ?? null, claim ? BigInt(claim.id) : null);
   const nOut = target.data?.kind === 'ok' ? (target.data.info?.nOut ?? null) : null;
-  const { address } = useConnection();
+  const { address } = useAccount();
   const credit = useCredit(address);
 
   const [running, setRunning] = useState(false);

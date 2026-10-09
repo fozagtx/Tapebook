@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { parseEventLogs, type Hex } from 'viem';
-import { useConnection } from 'wagmi';
+import { useAccount } from 'wagmi';
 import { countBurn, decode } from '../../contracts/core/netlist';
 import { circuitsAbi, tapebookClaimsAbi, transistorsAbi } from '@/lib/abi';
 import { useIndex } from '@/lib/api';
@@ -71,7 +71,7 @@ function AddSpec() {
   const [name, setName] = useState('');
   const [uri, setUri] = useState('');
   const [taped, setTaped] = useState<bigint | null>(null);
-  const { address } = useConnection();
+  const { address } = useAccount();
   const { data: index } = useIndex();
   const snap = index?.ok ? index : null;
 

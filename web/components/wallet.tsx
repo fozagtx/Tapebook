@@ -5,7 +5,8 @@
 import { Wallet } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { useConnect, useConnection, useConnectors, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import { ConnectKitButton } from 'connectkit';
+import { useAccount, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import type { Abi, Address, Hex, TransactionReceipt } from 'viem';
 import { CHAIN, EXPLORER, PUBLIC_RPC_URLS } from '@/lib/config';
 import { reason } from '@/lib/errors';
@@ -14,10 +15,7 @@ import { useMounted } from '@/lib/hooks';
 import { Addr, CopyButton, TxLink } from './common';
 
 export function ConnectButton({ compact }: { compact?: boolean }) {
-  const { address, isConnected } = useConnection();
-  const connectors = useConnectors();
-  const { mutate: connect, isPending, error } = useConnect();
-  const [open, setOpen] = useState(false);
+  const { address, isConnected } = useAccount();
   const mounted = useMounted();
 
   if (!mounted) return <button className="btn btn-ghost" disabled>{compact ? <Wallet size={14} /> : 'Connect wallet'}</button>;
@@ -28,30 +26,14 @@ export function ConnectButton({ compact }: { compact?: boolean }) {
       </Link>
     );
   return (
-    <div className="relative">
-      <button className="btn btn-ghost inline-flex items-center gap-1" onClick={() => setOpen((o) => !o)} disabled={isPending}>
-        <Wallet size={14} />
-        {!compact && (isPending ? 'Connecting…' : 'Connect wallet')}
-      </button>
-      {open && (
-        <div className="card absolute right-0 top-10 z-[var(--z-dropdown)] flex w-64 flex-col gap-2 !p-3">
-          {connectors.length === 0 && <p className="card-desc">No wallet found. Install OKX Wallet or MetaMask.</p>}
-          {connectors.map((c) => (
-            <button
-              key={c.uid}
-              className="btn btn-ghost justify-start"
-              onClick={() => {
-                connect({ connector: c, chainId: CHAIN.id });
-                setOpen(false);
-              }}
-            >
-              {c.name === 'Injected' ? 'Browser wallet (OKX Wallet, MetaMask)' : c.name}
-            </button>
-          ))}
-          {error && <p className="text-[length:var(--text-xs)] text-danger">{reason(error)}</p>}
-        </div>
+    <ConnectKitButton.Custom>
+      {({ show, isConnecting }) => (
+        <button className="btn btn-ghost inline-flex items-center gap-1" onClick={show} disabled={isConnecting}>
+          <Wallet size={14} />
+          {!compact && (isConnecting ? 'Connecting…' : 'Connect wallet')}
+        </button>
       )}
-    </div>
+    </ConnectKitButton.Custom>
   );
 }
 
@@ -80,8 +62,8 @@ export function NetworkDetails() {
  * Write buttons therefore read "Connect wallet" or "Switch to X Layer" until the wallet is ready.
  */
 export function WriteGate({ children }: { children: ReactNode }) {
-  const { isConnected, chainId } = useConnection();
-  const { mutate: switchChain, isPending, error } = useSwitchChain();
+  const { isConnected, chainId } = useAccount();
+  const { switchChain, isPending, error } = useSwitchChain();
   const mounted = useMounted();
   if (!mounted) return null;
   if (!isConnected) return <ConnectButton />;
@@ -120,7 +102,7 @@ export type TxState =
 
 /** One transaction with its four visible states: awaiting signature, pending, confirmed, failed. */
 export function useTx(onConfirmed?: (receipt: TransactionReceipt) => void) {
-  const { mutateAsync } = useWriteContract();
+  const { writeContractAsync } = useWriteContract();
   const [sent, setSent] = useState<Sent>({ kind: 'idle' });
   const hash = sent.kind === 'sent' ? sent.hash : undefined;
   const wait = useWaitForTransactionReceipt({ hash, chainId: CHAIN.id });
@@ -149,7 +131,7 @@ export function useTx(onConfirmed?: (receipt: TransactionReceipt) => void) {
   async function send(req: TxRequest) {
     setSent({ kind: 'signing' });
     try {
-      const h = await mutateAsync({
+      const h = await writeContractAsync({
         address: req.address,
         abi: req.abi,
         functionName: req.functionName,

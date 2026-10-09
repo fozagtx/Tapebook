@@ -2,7 +2,7 @@
 
 // Everything that needs a wallet, in one place, shown only after the wallet connects.
 import Link from 'next/link';
-import { useConnection, useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { tapebookClaimsAbi } from '@/lib/abi';
 import { useIndex } from '@/lib/api';
 import { circuitStatus, claimsFor } from '@/lib/claims';
@@ -16,8 +16,8 @@ import { TxAction, WriteGate } from './wallet';
 
 export function Account() {
   const mounted = useMounted();
-  const { address, isConnected, chainId } = useConnection();
-  const { mutate: disconnect } = useDisconnect();
+  const { address, isConnected, chainId } = useAccount();
+  const { disconnect } = useDisconnect();
 
   if (!mounted) return <Loading what="Checking your wallet" />;
   if (!isConnected || !address || chainId !== CHAIN.id)
