@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 1165" preserveAspectRatio="xMidYMid meet" font-family="Inter, 'DejaVu Sans', Arial, sans-serif" style="position:fixed;inset:0;background:#d8e6e0">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#005f5f"/></marker></defs>
+<rect width="1600" height="1165" fill="#d8e6e0"/>
+<text x="40" y="58" font-size="34" font-weight="700" fill="#005f5f" text-anchor="start">Tapebook architecture</text>
+<text x="40" y="88" font-size="17" font-weight="400" fill="#2d5653" text-anchor="start">A bug bounty layer for TapeOut circuits on X Layer. All checking is TapeOut’s own on-chain eval.</text>
+<rect x="30" y="130" width="330" height="760" rx="16" fill="none" stroke="#008b8b" stroke-width="2" stroke-dasharray="10 8"/>
+<rect x="50" y="116" width="81.6" height="28" rx="6" fill="#005f5f"/>
+<text x="62" y="136" font-size="15" font-weight="700" fill="#ffffff" text-anchor="start">People</text>
+<rect x="61" y="171" width="280" height="92" rx="10" fill="#008b8b"/>
+<rect x="55" y="165" width="280" height="92" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="73" y="197" font-size="20" font-weight="700" fill="#0b2626">Visitor</text>
+<text x="73" y="223" font-size="15" font-weight="400" fill="#2d5653">landing page only, no wallet</text>
+<rect x="61" y="296" width="280" height="118" rx="10" fill="#008b8b"/>
+<rect x="55" y="290" width="280" height="118" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="73" y="322" font-size="20" font-weight="700" fill="#0b2626">Circuit owner</text>
+<text x="73" y="348" font-size="15" font-weight="400" fill="#2d5653">mint NAND → tape out miter</text>
+<text x="73" y="371" font-size="15" font-weight="400" fill="#2d5653">→ post claim + bond</text>
+<text x="73" y="394" font-size="15" font-weight="400" fill="#2d5653">topUp · reclaimBond</text>
+<rect x="61" y="446" width="280" height="92" rx="10" fill="#008b8b"/>
+<rect x="55" y="440" width="280" height="92" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="73" y="472" font-size="20" font-weight="700" fill="#0b2626">Spec author</text>
+<text x="73" y="498" font-size="15" font-weight="400" fill="#2d5653">tape out spec → registerSpec</text>
+<rect x="61" y="646" width="280" height="118" rx="10" fill="#008b8b"/>
+<rect x="55" y="640" width="280" height="118" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="73" y="672" font-size="20" font-weight="700" fill="#0b2626">Hunter</text>
+<text x="73" y="698" font-size="15" font-weight="400" fill="#2d5653">search with differs()</text>
+<text x="73" y="721" font-size="15" font-weight="400" fill="#2d5653">commit → wait 1 block</text>
+<text x="73" y="744" font-size="15" font-weight="400" fill="#2d5653">→ challenge → withdraw</text>
+<text x="195" y="830" font-size="14" font-weight="600" fill="#005f5f" text-anchor="middle">App pages and every write</text>
+<text x="195" y="850" font-size="14" font-weight="600" fill="#005f5f" text-anchor="middle">need a connected wallet</text>
+<rect x="400" y="130" width="520" height="760" rx="16" fill="none" stroke="#008b8b" stroke-width="2" stroke-dasharray="10 8"/>
+<rect x="420" y="116" width="312.0" height="28" rx="6" fill="#005f5f"/>
+<text x="432" y="136" font-size="15" font-weight="700" fill="#ffffff" text-anchor="start">web/  ·  Next.js app on Render</text>
+<rect x="431" y="171" width="470" height="92" rx="10" fill="#008b8b"/>
+<rect x="425" y="165" width="470" height="92" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="443" y="197" font-size="20" font-weight="700" fill="#0b2626">Landing  /</text>
+<text x="443" y="223" font-size="15" font-weight="400" fill="#2d5653">public · walkthrough: stake → hunt → break → paid</text>
+<rect x="431" y="296" width="470" height="132" rx="10" fill="#008b8b"/>
+<rect x="425" y="290" width="470" height="132" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="443" y="322" font-size="20" font-weight="700" fill="#0b2626">App pages (wallet-gated)</text>
+<text x="443" y="348" font-size="15" font-weight="600" fill="#0b2626">Book · Circuit · Claim · Hunt · Specs · Account</text>
+<text x="443" y="371" font-size="15" font-weight="400" fill="#2d5653">wagmi: injected + WalletConnect, switch to X Layer</text>
+<text x="443" y="394" font-size="15" font-weight="400" fill="#2d5653">every tx: preview → sign → pending → confirmed</text>
+<rect x="431" y="461" width="470" height="160" rx="10" fill="#008b8b"/>
+<rect x="425" y="455" width="470" height="160" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="443" y="487" font-size="20" font-weight="700" fill="#0b2626">Route handlers (ISR, 10 min)</text>
+<text x="443" y="513" font-size="15" font-weight="600" fill="#0b2626">/api/index  — Book snapshot at one block:</text>
+<text x="443" y="536" font-size="15" font-weight="400" fill="#2d5653">every processor and circuit via Multicall3</text>
+<text x="443" y="559" font-size="15" font-weight="600" fill="#0b2626">/api/versions  — TapeOut logic, seal flag, fees,</text>
+<text x="443" y="582" font-size="15" font-weight="400" fill="#2d5653">conformance, upgrade history from logs</text>
+<rect x="431" y="646" width="470" height="118" rx="10" fill="#008b8b"/>
+<rect x="425" y="640" width="470" height="118" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="443" y="672" font-size="20" font-weight="700" fill="#0b2626">Hunt engine (browser)</text>
+<text x="443" y="698" font-size="15" font-weight="400" fill="#2d5653">differs(claimId, x) in Multicall3 batches of 256,</text>
+<text x="443" y="721" font-size="15" font-weight="400" fill="#2d5653">≤ 20 batches/s, halved on RPC error</text>
+<text x="443" y="744" font-size="15" font-weight="400" fill="#2d5653">full sweep when nIn ≤ 16</text>
+<rect x="960" y="130" width="610" height="885" rx="16" fill="none" stroke="#008b8b" stroke-width="2" stroke-dasharray="10 8"/>
+<rect x="980" y="116" width="302.4" height="28" rx="6" fill="#005f5f"/>
+<text x="992" y="136" font-size="15" font-weight="700" fill="#ffffff" text-anchor="start">X Layer mainnet  ·  chain 196</text>
+<rect x="991" y="171" width="520" height="110" rx="10" fill="#008b8b"/>
+<rect x="985" y="165" width="520" height="110" rx="10" fill="#e9fbfb" stroke="#008b8b" stroke-width="3"/>
+<text x="1003" y="197" font-size="20" font-weight="700" fill="#0b2626">TapeOut CircuitFactory  (existing)</text>
+<text x="1003" y="223" font-size="15" font-weight="400" fill="#2d5653">createCPU · isCPU · cpuAt · fees</text>
+<text x="1003" y="246" font-size="15" font-weight="400" fill="#2d5653">UUPS + beacons: upgradeable by its owner until seal()</text>
+<rect x="991" y="306" width="520" height="160" rx="10" fill="#008b8b"/>
+<rect x="985" y="300" width="520" height="160" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="1003" y="332" font-size="20" font-weight="700" fill="#0b2626">TapebookClaims  (Tapebook’s only contract)</text>
+<text x="1003" y="358" font-size="14" font-weight="600" fill="#0b2626">post · commit · challenge · topUp · reclaimBond · withdraw</text>
+<text x="1003" y="380" font-size="14" font-weight="400" fill="#2d5653">differs · conformance · currentImpl (views)</text>
+<text x="1003" y="402" font-size="14" font-weight="400" fill="#2d5653">bond ≤ 1 OKB · lock ≥ 1 day · miter ≤ 1,000 gates</text>
+<text x="1003" y="424" font-size="14" font-weight="400" fill="#2d5653">no owner · no fee · not upgradeable · pull payments</text>
+<rect x="991" y="521" width="520" height="300" rx="10" fill="#008b8b"/>
+<rect x="985" y="515" width="520" height="300" rx="10" fill="#e9fbfb" stroke="#008b8b" stroke-width="3"/>
+<text x="1003" y="547" font-size="20" font-weight="700" fill="#0b2626">Tapebook processor  (one createCPU)</text>
+<rect x="1005" y="567" width="480" height="70" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="1023" y="599" font-size="17" font-weight="700" fill="#0b2626">Transistors  ·  TBOOK</text>
+<text x="1023" y="625" font-size="14" font-weight="400" fill="#2d5653">NAND supply 1,000,000 (the cap) · 0.0001 OKB each</text>
+<rect x="1005" y="652" width="480" height="146" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="1023" y="684" font-size="17" font-weight="700" fill="#0b2626">Circuits</text>
+<text x="1023" y="710" font-size="14" font-weight="600" fill="#0b2626">seed specs ADD8C · MAJ5 · EQ8 · MUX8</text>
+<text x="1023" y="732" font-size="14" font-weight="400" fill="#2d5653">reference targets A, B · one miter per claim</text>
+<text x="1023" y="754" font-size="14" font-weight="400" fill="#2d5653">miter = REF target + REF spec</text>
+<text x="1023" y="776" font-size="14" font-weight="400" fill="#2d5653">→ XOR → OR → 1 bit</text>
+<rect x="991" y="856" width="520" height="72" rx="10" fill="#008b8b"/>
+<rect x="985" y="850" width="520" height="72" rx="10" fill="#e9fbfb" stroke="#008b8b" stroke-width="3"/>
+<text x="1003" y="882" font-size="20" font-weight="700" fill="#0b2626">Any TapeOut processor</text>
+<text x="1003" y="908" font-size="15" font-weight="400" fill="#2d5653">target circuits, owned by claimants</text>
+<rect x="985" y="945" width="300" height="50" rx="10" fill="#b2ffff" stroke="#008b8b" stroke-width="3"/>
+<text x="1003" y="977" font-size="15" font-weight="600" fill="#0b2626">Multicall3  0xcA11…CA11</text>
+<line x1="335" y1="211" x2="425" y2="211" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<line x1="335" y1="349" x2="425" y2="349" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<line x1="335" y1="486" x2="425" y2="400" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<line x1="335" y1="699" x2="425" y2="699" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<line x1="895" y1="356" x2="985" y2="380" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="940" y="352" font-size="13" font-weight="600" fill="#005f5f" text-anchor="middle">writes</text>
+<polyline points="895,535 940,535 940,970 985,970" fill="none" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<polyline points="895,699 940,699" fill="none" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="948" y="610" font-size="13" font-weight="600" fill="#005f5f" text-anchor="start">reads</text>
+<polyline points="1505,220 1545,220 1545,665 1505,665" fill="none" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="1560" y="360" font-size="13" font-weight="600" fill="#005f5f" transform="rotate(90 1560 360)">createCPU</text>
+<line x1="1245" y1="460" x2="1245" y2="515" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="1320" y="495" font-size="13" font-weight="600" fill="#005f5f" text-anchor="middle">eval(miter, x)</text>
+<line x1="1245" y1="798" x2="1245" y2="850" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="1310" y="836" font-size="13" font-weight="600" fill="#005f5f" text-anchor="middle">REF target</text>
+<rect x="30" y="1045" width="1540" height="92" rx="16" fill="none" stroke="#008b8b" stroke-width="2" stroke-dasharray="10 8"/>
+<rect x="50" y="1031" width="254.39999999999998" height="28" rx="6" fill="#005f5f"/>
+<text x="62" y="1051" font-size="15" font-weight="700" fill="#ffffff" text-anchor="start">contracts/  ·  Hardhat 2</text>
+<text x="55" y="1087" font-size="15" font-weight="400" fill="#0b2626" text-anchor="start">TapebookClaims.sol + MiterLib.sol · vendored TapeOut source (MIT) · contracts/core: netlist + miter encoding, shared with web/</text>
+<text x="55" y="1113" font-size="15" font-weight="400" fill="#0b2626" text-anchor="start">tests 1–13, upgrade and invariant tests, exhaustive 2^17 sweeps with TapeOut eval · deploy scripts 01–04 → deployments/196.json</text>
+<line x1="1400" y1="1045" x2="1400" y2="1015" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="1390" y="1036" font-size="13" font-weight="600" fill="#005f5f" text-anchor="end">scripts 01–04 deploy</text>
+<line x1="660" y1="1045" x2="660" y2="890" stroke="#005f5f" stroke-width="2.5" marker-end="url(#arr)"/>
+<text x="670" y="1030" font-size="13" font-weight="600" fill="#005f5f" text-anchor="start">ABIs + core</text>
+</svg>

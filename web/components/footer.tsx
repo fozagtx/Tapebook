@@ -55,7 +55,7 @@ export function FooterLinks({ readOnly = false }: { readOnly?: boolean }) {
         title="Project"
         links={[
           { label: 'GitHub', href: REPO_URL },
-          { label: 'PRD', href: `${REPO_URL}/blob/main/docs/PRD.md` },
+          { label: 'README', href: `${REPO_URL}#readme` },
           { label: 'Contact', href: `${REPO_URL}/issues` },
         ]}
       />
