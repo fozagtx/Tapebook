@@ -5,7 +5,8 @@
 import { Wallet } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { ConnectKitButton } from 'connectkit';
+import { ConnectKitButton, useModal } from 'connectkit';
+import { useRouter } from 'next/navigation';
 import { useAccount, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import type { Abi, Address, Hex, TransactionReceipt } from 'viem';
 import { CHAIN, EXPLORER, PUBLIC_RPC_URLS } from '@/lib/config';
@@ -35,6 +36,39 @@ export function ConnectButton({ compact }: { compact?: boolean }) {
       )}
     </ConnectKitButton.Custom>
   );
+}
+
+/** "Open the Book" CTAs: connect first if needed, then go to /book. */
+export function useOpenBook() {
+  const { isConnected } = useAccount();
+  const { open, setOpen } = useModal();
+  const router = useRouter();
+  const mounted = useMounted();
+  const [pending, setPending] = useState(false);
+  const prevOpen = useRef(open);
+  useEffect(() => {
+    if (pending && isConnected) {
+      setPending(false);
+      router.push('/book');
+    }
+  }, [pending, isConnected, router]);
+  // Modal dismissed without connecting: clear the pending navigation.
+  useEffect(() => {
+    const wasOpen = prevOpen.current;
+    prevOpen.current = open;
+    if (wasOpen && !open && !isConnected) setPending(false);
+  }, [open, isConnected]);
+  const connected = mounted && isConnected;
+  return {
+    label: connected ? 'Open the Book' : 'Connect wallet',
+    onClick: () => {
+      if (connected) router.push('/book');
+      else {
+        setPending(true);
+        setOpen(true);
+      }
+    },
+  };
 }
 
 /** Network details for adding the chain by hand when the wallet does not know it. */

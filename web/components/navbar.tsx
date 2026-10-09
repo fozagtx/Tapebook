@@ -6,9 +6,11 @@ import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 import { SpotlightNavbar } from '@/components/ui/spotlight-navbar';
 import { REPO_URL } from '@/lib/config';
-import { ConnectButton } from './wallet';
+import { useMounted } from '@/lib/hooks';
+import { ConnectButton, useOpenBook } from './wallet';
 
 const LINKS = [
   { label: 'How it works', href: '/#how-it-works' },
@@ -25,9 +27,13 @@ export function Navbar() {
   const [openOn, setOpenOn] = useState<string | null>(null);
   const open = openOn === pathname;
   const setOpen = (f: (o: boolean) => boolean) => setOpenOn(f(open) ? pathname : null);
+  const book = useOpenBook();
+  const { isConnected } = useAccount();
+  const mounted = useMounted();
   // The landing page navbar is wordmark, links and "Open the Book" only (PRD 19.2).
   // Wallet UI belongs to the app pages, where writes happen.
   const showWallet = pathname !== '/';
+  const showAddress = showWallet && mounted && isConnected;
   const active = LINKS.findIndex((l) => l.href !== '/#how-it-works' && pathname.startsWith(l.href));
 
   useEffect(() => {
@@ -65,14 +71,14 @@ export function Navbar() {
           />
         </div>
         <div className="flex items-center gap-1">
-          {showWallet && (
+          {showAddress && (
             <div className="hidden sm:block">
               <ConnectButton compact />
             </div>
           )}
-          <Link href="/book" className="btn btn-primary hidden sm:inline-flex">
-            Open the Book
-          </Link>
+          <button type="button" onClick={book.onClick} className="btn btn-primary hidden sm:inline-flex">
+            {book.label}
+          </button>
           <button className="btn btn-ghost sm:hidden" aria-label="Menu" onClick={() => setOpen((o) => !o)}>
             {open ? <X size={16} /> : <Menu size={16} />}
           </button>
@@ -86,10 +92,10 @@ export function Navbar() {
             </button>
           ))}
           <div className="flex items-center gap-2 pt-2">
-            {showWallet && <ConnectButton />}
-            <Link href="/book" className="btn btn-primary">
-              Open the Book
-            </Link>
+            {showAddress && <ConnectButton />}
+            <button type="button" onClick={book.onClick} className="btn btn-primary">
+              {book.label}
+            </button>
           </div>
         </nav>
       )}
