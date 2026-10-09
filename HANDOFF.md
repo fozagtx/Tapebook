@@ -27,32 +27,21 @@ write time), Docs nav link removed, NAND-gate favicon `web/app/icon.svg`, in-pro
 /api/index + /api/versions warmed at boot via `web/instrumentation.ts` (caches on globalThis — instrumentation and
 route bundles don't share module instances under `next start`).
 
-## IN PROGRESS — the current 502 (uncommitted working tree: render.yaml, web/lib/config.ts, web/lib/indexer.ts)
-Root cause measured: `buildIndex()` in `web/lib/indexer.ts` crawls 309 processors / 12,978 circuits and fetched ALL
-netlist bytes in one `rd()` call → peak RSS 495 MB in a bare Node process → Render OOM-kills the server mid-build →
-502 on /api/index, and /api/versions also 502s during the restart. Verified live: `curl https://tapebook-web.onrender.com/api/index`
-→ 502 `x-render-routing: dynamic-paid-error` after ~11-24 s.
+## Render 502 on /api/index (memory) — fix committed, NOT yet measured live
+Root cause: `buildIndex()` read all 12,978 netlists in one `rd()` call → peak RSS 495 MB → Render OOM-kill → 502.
+Fix (`lib/indexer.ts`, `lib/config.ts` INDEX): netlists read in chunks of `netlistChunk` (400), `netlistBatch` 25 per
+multicall, `netlistConcurrency` 2; each chunk is reduced to hash/size/miterOf and dropped. Output shape unchanged.
+Heap cap `--max-old-space-size=384` is set in render.yaml **startCommand only** — as an env var it also applied to
+`next build`, which OOMs at 384 MB (reproduced). If a NODE_OPTIONS var exists in Render's Environment tab, delete it.
+lint / typecheck / build pass; `next start` boots under the cap.
 
-Fix already written in the working tree (review it with `git diff`):
-- `lib/indexer.ts`: netlist phase now loops over `ids` in slices of `INDEX.netlistChunk`, reads each slice with
-  `readMany(..., { batch: INDEX.netlistBatch, concurrency: INDEX.netlistConcurrency })`, folds to hash/size/miterOf,
-  drops the strings, optional `gc?.()`. Output shape unchanged. Debug `rss()` probes were removed.
-- `lib/config.ts` INDEX: `netlistBatch: 25`, `netlistChunk: 400`, `netlistConcurrency: 1` (new keys, doc comments).
-- `render.yaml`: `NODE_OPTIONS=--max-old-space-size=384`.
-
-Remaining steps:
-1. Measure: `cd web && NODE_OPTIONS=--max-old-space-size=384 npx tsx --tsconfig tsconfig.json /tmp/mem.mts`
-   (script may be gone after reboot; it imports buildIndex/serverClient/FACTORIES/TAPEBOOK, samples process.memoryUsage().rss
-   every 100 ms, prints time/peak RSS/heap/json size/processors/circuits). Baseline 17.4 s / 495 MB. Target < 250 MB.
-   If still high, lower netlistChunk to 200. Expect it to be slower than 17 s now (concurrency 1) — acceptable
-   because the cache + boot warm-up hides it, but if > 60 s consider netlistConcurrency 2.
-2. `cd web && npm run lint && npm run typecheck && npm run build` — all must pass (they did before this edit).
-3. Commit (message: why — OOM on 512 MB Render), push `origin HEAD`. Render auto-deploys; then verify
-   `curl -sD - -o /dev/null https://tapebook-web.onrender.com/api/index` → 200 with `x-snapshot-age` header (may need
-   ~60 s after deploy for the boot warm-up; first hit during warm-up blocks on compute).
-4. Also tell the owner: Render free tier spins down after 15 min idle → first visitor pays boot + index time; Starter
-   plan removes that. An Alchemy X Layer RPC in `XLAYER_RPC_URL` (Render env tab) enables the upgrade-history scan and
-   better rate limits — code already supports it. Owner must add the key himself; never paste secrets.
+Still to do:
+1. Measure peak RSS + time against mainnet (target < 250 MB; if higher, lower netlistChunk to 200). The cloud session
+   could not reach the X Layer RPCs (network policy), so this needs a machine with RPC access or the live deploy.
+2. Get these commits onto the branch Render deploys, then verify
+   `curl -sD - -o /dev/null https://tapebook-web.onrender.com/api/index` → 200 with `x-snapshot-age`.
+3. Tell the owner: free tier spins down after 15 min idle (Starter removes it); an Alchemy X Layer RPC in
+   `XLAYER_RPC_URL` enables the upgrade-history scan and better rate limits. Owner adds keys himself.
 
 ## Open UX question the owner raised (unanswered)
 He asked why the hero still says "Open the Book" when the wallet is connected. Current behaviour is intentional

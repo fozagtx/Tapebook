@@ -8,7 +8,9 @@ services:
     runtime: node
     plan: free # change to starter or higher to avoid cold starts
     buildCommand: cd web && npm ci && npm run build
-    startCommand: cd web && npm run start # next start listens on $PORT, which Render sets
+    # Render free tier is 512 MB; cap V8's heap below it so GC runs before the container is killed.
+    # Set here, not as an env var, because `next build` needs more than 384 MB of heap.
+    startCommand: cd web && NODE_OPTIONS=--max-old-space-size=384 npm run start # next start listens on $PORT, which Render sets
     healthCheckPath: /
     autoDeploy: true
     buildFilter:
@@ -22,9 +24,6 @@ services:
         value: "22"
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
-      # Render free tier is 512 MB; keep V8's heap below it so GC runs before the container is killed.
-      - key: NODE_OPTIONS
-        value: "--max-old-space-size=384"
       # X Layer mainnet addresses (contracts/deployments/196.json). These are also the defaults in
       # web/lib/config.ts; NEXT_PUBLIC_* values are baked in at build time, so redeploy after changing them.
       - key: NEXT_PUBLIC_CLAIMS_ADDRESS

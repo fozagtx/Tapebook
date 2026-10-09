@@ -100,7 +100,7 @@ export const INDEX = {
   /** Circuits whose netlists are held in memory at once; each chunk is reduced to hash/size/miterOf and dropped before the next is read. */
   netlistChunk: 400,
   /** Parallel RPC requests during the netlist phase; lower than the general value because responses carry whole netlists. */
-  netlistConcurrency: 1,
+  netlistConcurrency: 2,
   /** Parallel RPC requests while building the snapshot. */
   concurrency: 8,
 };
