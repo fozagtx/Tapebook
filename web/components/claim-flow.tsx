@@ -98,10 +98,7 @@ export function ClaimFlow() {
 
   return (
     <>
-      <PageTitle eyebrow="Post a claim" title="Bond a claim that your circuit matches a spec.">
-        You state that your circuit behaves exactly like a spec on every input. Tapebook tapes out a miter for the pair on its processor; anyone who
-        finds one input where the miter returns 1 breaks the claim and takes the bond.
-      </PageTitle>
+      <PageTitle eyebrow="Post a claim" title="Stake on your circuit." />
 
       <Card className="mb-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

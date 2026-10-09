@@ -39,16 +39,14 @@ export function FiguresStrip() {
   const broken = claims ? claims.filter((c) => c.status === 2).length : null;
 
   return (
-    <section ref={ref} className="border-y border-line bg-bg-surface pt-20">
+    <section ref={ref} className="border-y border-line bg-bg-surface py-8">
       <div className="container grid grid-cols-2 md:grid-cols-4">
         <Figure label="Circuits indexed" value={isLoading ? null : circuits} visible={visible} />
         <Figure label="Open claims" value={isLoading ? null : (open?.length ?? null)} visible={visible} />
         <Figure label="OKB bonded" value={isLoading ? null : bonded} decimals={3} visible={visible} />
         <Figure label="Claims broken" value={isLoading ? null : broken} visible={visible} />
       </div>
-      <p className="container pb-6 text-center text-[length:var(--text-xs)] text-fg-muted">
-        {ok ? `Snapshot at block ${ok.block.number}, rebuilt at most every 10 minutes.` : isLoading ? 'Reading the Book…' : `Snapshot unavailable (RPC error); figures show ${DASH}.`}
-      </p>
+
     </section>
   );
 }

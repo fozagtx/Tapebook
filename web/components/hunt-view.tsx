@@ -147,10 +147,7 @@ export function HuntView({ claimId: idParam }: { claimId: string }) {
 
   return (
     <>
-      <PageTitle eyebrow={`Hunt · claim ${claim.claimId}`} title="Find one input where target and spec disagree.">
-        Every candidate is checked by TapeOut’s own eval of the claim’s miter, through <span className="mono">differs(claimId, x)</span> in Multicall3
-        batches against the live chain. Nothing is simulated.
-      </PageTitle>
+      <PageTitle eyebrow={`Hunt · claim ${claim.claimId}`} title="Find one breaking input." />
 
       <ClaimCard claim={claim} currentImpl={q.data?.currentImpl} target={target.data?.kind === 'ok' ? target.data.info : null} showTarget onHuntPage />
 
@@ -158,10 +155,7 @@ export function HuntView({ claimId: idParam }: { claimId: string }) {
         <Card className="flex flex-col gap-4">
           <span className="card-title">Search</span>
           <p className="card-desc">
-            {total !== null
-              ? `${claim.nIn} input pins: a full sweep of all ${total.toLocaleString('en-US')} inputs.`
-              : `${claim.nIn} input pins: all-zeros, all-ones, one-hot, walking patterns, then ${HUNT.randomBudget.toLocaleString('en-US')} seeded random inputs.`}{' '}
-            Batches of up to {HUNT.batchSize} calls, at most {HUNT.maxBatchesPerSecond} batches per second, halved automatically on an RPC error.
+            {total !== null ? `Full sweep of ${total.toLocaleString('en-US')} inputs.` : `Patterns, then ${HUNT.randomBudget.toLocaleString('en-US')} random inputs.`} Checked on chain by TapeOut’s eval.
           </p>
           <div className="flex gap-2">
             <button className="btn btn-primary" onClick={run} disabled={running}>
@@ -193,7 +187,7 @@ export function HuntView({ claimId: idParam }: { claimId: string }) {
           <div className="flex flex-col gap-2 border-t border-line-muted pt-4">
             <span className="eyebrow-sm">Or check your own input</span>
             <div className="flex gap-2">
-              <input className="input mono flex-1" value={manual} onChange={(e) => setManual(e.target.value)} placeholder="383, 0b101111111 or 0x7f0100" />
+              <input className="input mono flex-1" value={manual} onChange={(e) => setManual(e.target.value)} placeholder="integer, 0b… or canonical hex" />
               <button className="btn btn-ghost" onClick={check}>
                 Check
               </button>

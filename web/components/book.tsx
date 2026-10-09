@@ -61,10 +61,7 @@ export function Book() {
   const tb = snap?.claims?.tapebook?.toLowerCase();
   return (
     <>
-      <PageTitle eyebrow="The Book" title="Every TapeOut circuit, and what is claimed about it.">
-        A snapshot of every processor and circuit on TapeOut’s factory, read through Multicall3 at one block and rebuilt at most every 10 minutes.
-        Circuit pages re-read the chain live.
-      </PageTitle>
+      <PageTitle eyebrow="The Book" title="Every TapeOut circuit." />
       {isLoading && <Loading what="Reading the Book" />}
       {error && <RpcError error={error} />}
       {data && !data.ok && <RpcError error={data.error} />}

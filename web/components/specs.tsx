@@ -113,10 +113,7 @@ function AddSpec() {
   return (
     <Card className="flex flex-col gap-4">
       <span className="card-title">Add a spec</span>
-      <p className="card-desc">
-        A spec is a stateless circuit on the Tapebook processor. Paste its netlist (TapeOut encoding), tape it out, then label it. It will be shown as a
-        third-party spec next to every claim that uses it.
-      </p>
+      <p className="card-desc">Paste a stateless netlist, tape it out on the Tapebook processor, then label it.</p>
       <textarea className="input mono h-28 !rounded-[var(--radius-md)] py-2" placeholder="0x00000002…" value={nlText} onChange={(e) => setNlText(e.target.value)} />
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <input className="input" placeholder="input pins" value={nInText} onChange={(e) => setNInText(e.target.value)} inputMode="numeric" />
@@ -183,10 +180,7 @@ function AddSpec() {
 export function Specs() {
   return (
     <>
-      <PageTitle eyebrow="Specs" title="What a circuit is claimed to match.">
-        A claim is only as meaningful as its spec. Tapebook seed specs (ADD8C, MAJ5, EQ8, MUX8) carry conformance vectors stored in the claims contract;
-        every other spec is a third-party spec. Each card links to the spec’s source.
-      </PageTitle>
+      <PageTitle eyebrow="Specs" title="What circuits are claimed to match." />
       <Library />
       <div className="mt-10">
         <AddSpec />

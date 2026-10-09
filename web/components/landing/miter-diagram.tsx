@@ -40,7 +40,7 @@ export function MiterDiagram() {
         </text>
         <circle cx={760} cy={120} r={14} fill="var(--color-moss)" />
         <text x={760} y={125} textAnchor="middle" fill="var(--color-bg-surface)" fontWeight={700}>
-          1?
+          1
         </text>
         <text x={760} y={160} textAnchor="middle">
           1 = they disagree
