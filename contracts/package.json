@@ -8,14 +8,16 @@
     "node": ">=22"
   },
   "scripts": {
-    "compile": "hardhat compile && hardhat run scripts/export-abi.ts",
+    "compile": "hardhat compile && hardhat run --no-compile scripts/export-abi.ts",
     "test": "hardhat test",
-    "test:exhaustive": "EXHAUSTIVE=1 hardhat test",
+    "test:exhaustive": "EXHAUSTIVE=1 hardhat test --network localhost",
     "deploy:01": "hardhat run scripts/01-create-cpu.ts --network xlayer",
     "deploy:02": "hardhat run scripts/02-tapeout-seeds.ts --network xlayer",
     "deploy:03": "hardhat run scripts/03-deploy-claims.ts --network xlayer",
     "deploy:04": "hardhat run scripts/04-seed-claims.ts --network xlayer",
-    "local:seed": "hardhat run scripts/local-seed.ts --network localhost"
+    "local:node": "hardhat node",
+    "local:deploy": "hardhat run scripts/local-tapeout.ts --network localhost && CHAIN_ID=31337 hardhat run scripts/01-create-cpu.ts --network localhost && hardhat run scripts/02-tapeout-seeds.ts --network localhost && hardhat run scripts/03-deploy-claims.ts --network localhost && hardhat run scripts/04-seed-claims.ts --network localhost",
+    "local:break": "hardhat run scripts/local-break.ts --network localhost"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox-viem": "4.1.2",

@@ -4,3 +4,4 @@ cache
 typechain-types
 coverage
 .env
+deployments/31337.json

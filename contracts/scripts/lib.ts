@@ -106,6 +106,7 @@ export interface Deployments {
   specs?: Record<string, { tx: Hex }>;
   seedClaims?: Record<string, { claimId: string; miter: string; tx: Hex; bond: string }>;
   broken?: Record<string, { commitTx: Hex; challengeTx: Hex; x: Hex }>;
+  local?: { owner: Address; circuitImpl: Address; altCircuitImpl: Address };
 }
 
 export function deploymentsPath(chainId: number) {
