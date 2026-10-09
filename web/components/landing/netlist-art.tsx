@@ -63,7 +63,7 @@ const ART = layout();
 export function NetlistArt() {
   return (
     <figure className="container mt-14 flex flex-col items-center gap-3">
-      <div className="w-full max-w-[1040px] overflow-hidden rounded-[var(--radius-lg)] border border-line bg-bg-surface p-4 shadow-lg">
+      <div className="w-full max-w-[1040px] overflow-hidden rounded-[var(--radius-lg)] border-2 border-line bg-bg-surface p-4 shadow-lg">
         <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={`Netlist of Tapebook's reference 8-bit adder: ${ART.nand} NAND gates`}>
           <g stroke="var(--color-border-default)" strokeWidth={1}>
             {ART.wires.map(([x1, y1, x2, y2], i) => (

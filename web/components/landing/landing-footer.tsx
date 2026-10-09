@@ -14,7 +14,7 @@ export function LandingFooter() {
   return (
     <footer className="mt-0">
       <div className="container flex flex-col gap-8 py-16">
-        <FooterLinks />
+        <FooterLinks readOnly />
       </div>
       <div className="h-[420px] md:h-[520px]">
         {moss && (

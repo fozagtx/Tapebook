@@ -49,7 +49,7 @@ export function Navbar() {
       className="tb-nav fixed left-1/2 top-4 z-[var(--z-sticky)] w-[min(720px,calc(100%-32px))]"
     >
       <div
-        className="flex h-[52px] items-center justify-between gap-2 rounded-[var(--radius-pill)] border border-line bg-bg-surface pl-5 pr-2 transition-shadow duration-[var(--duration-slow)]"
+        className="flex h-[52px] items-center justify-between gap-2 rounded-[var(--radius-pill)] border-2 border-line bg-bg-surface pl-5 pr-2 transition-shadow duration-[var(--duration-slow)]"
         style={{ boxShadow: scrolled ? 'var(--shadow-lg)' : 'var(--shadow-md)' }}
       >
         <Link href="/" className="wordmark text-accent">

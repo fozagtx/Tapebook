@@ -3,8 +3,9 @@
 // Wallet connection and transactions (PRD section 12a). Reading needs no wallet; the app never
 // asks to connect until the user starts a write action, never holds keys and never signs for anyone.
 import { Wallet } from 'lucide-react';
+import Link from 'next/link';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { useConnect, useConnection, useConnectors, useDisconnect, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+import { useConnect, useConnection, useConnectors, useSwitchChain, useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 import type { Abi, Address, Hex, TransactionReceipt } from 'viem';
 import { CHAIN, EXPLORER, PUBLIC_RPC_URLS } from '@/lib/config';
 import { reason } from '@/lib/errors';
@@ -16,16 +17,15 @@ export function ConnectButton({ compact }: { compact?: boolean }) {
   const { address, isConnected } = useConnection();
   const connectors = useConnectors();
   const { mutate: connect, isPending, error } = useConnect();
-  const { mutate: disconnect } = useDisconnect();
   const [open, setOpen] = useState(false);
   const mounted = useMounted();
 
   if (!mounted) return <button className="btn btn-ghost" disabled>{compact ? <Wallet size={14} /> : 'Connect wallet'}</button>;
   if (isConnected && address)
     return (
-      <button className="btn btn-ghost mono" onClick={() => disconnect()} title={`${address} (click to disconnect)`}>
+      <Link className="btn btn-ghost mono" href="/account" title={address}>
         {shortAddr(address)}
-      </button>
+      </Link>
     );
   return (
     <div className="relative">

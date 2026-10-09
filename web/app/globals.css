@@ -12,6 +12,9 @@
 
   --color-moss: var(--color-moss);
   --color-moss-light: var(--color-moss-light);
+  --color-cyan: var(--color-cyan);
+  --color-cyan-light: var(--color-cyan-light);
+  --color-accent-dark: var(--color-accent-dark);
   --color-olive: var(--color-olive);
   --color-olive-light: var(--color-olive-light);
   --color-olive-bg: var(--color-olive-bg);
@@ -71,7 +74,8 @@
 :root {
   --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
-  --font-mono: var(--font-inter), "Inter", system-ui, sans-serif;
+  /* ASCII art needs a true monospace face. */
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 html {

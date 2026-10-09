@@ -28,7 +28,8 @@ function Col({ title, links }: { title: string; links: { label: string; href: st
   );
 }
 
-export function FooterLinks() {
+/** `readOnly` (landing page): only pages that need no wallet. */
+export function FooterLinks({ readOnly = false }: { readOnly?: boolean }) {
   const claims = TAPEBOOK.claims ? explorerAddress(TAPEBOOK.claims) : null;
   const processor = TAPEBOOK.circuits ? explorerAddress(TAPEBOOK.circuits) : null;
   return (
@@ -38,8 +39,7 @@ export function FooterLinks() {
         links={[
           { label: 'Book', href: '/book' },
           { label: 'Specs', href: '/specs' },
-          { label: 'Post a claim', href: '/claim' },
-          { label: 'Hunt', href: '/book?status=open' },
+          ...(readOnly ? [] : [{ label: 'My account', href: '/account' }]),
         ]}
       />
       <Col
