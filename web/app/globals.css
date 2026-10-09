@@ -1,0 +1,172 @@
+@import "tailwindcss";
+/* Layered so Tailwind utilities (e.g. sm:hidden) can override the starter classes (.btn, .card, …). */
+@import "./tokens.css" layer(components);
+
+/* tokens.css is the only source of colour, type, spacing, radius, shadow and motion values.
+   Tailwind utilities (ours and the Vengeance UI components') read the same variables. */
+@theme inline {
+  --color-bg-base: var(--color-bg-base);
+  --color-bg-surface: var(--color-bg-surface);
+  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg-overlay: var(--color-bg-overlay);
+
+  --color-moss: var(--color-moss);
+  --color-moss-light: var(--color-moss-light);
+  --color-olive: var(--color-olive);
+  --color-olive-light: var(--color-olive-light);
+  --color-olive-bg: var(--color-olive-bg);
+  --color-accent: var(--color-accent);
+  --color-accent-bg: var(--color-accent-bg);
+  --color-accent-border: var(--color-accent-border);
+
+  --color-line: var(--color-border-default);
+  --color-line-muted: var(--color-border-muted);
+  --color-line-strong: var(--color-border-strong);
+
+  --color-fg: var(--color-text-primary);
+  --color-fg-secondary: var(--color-text-secondary);
+  --color-fg-muted: var(--color-text-muted);
+
+  --color-success: var(--color-success);
+  --color-success-bg: var(--color-success-bg);
+  --color-success-border: var(--color-success-border);
+  --color-danger: var(--color-danger);
+  --color-danger-bg: var(--color-danger-bg);
+  --color-danger-border: var(--color-danger-border);
+  --color-warning: var(--color-warning);
+  --color-warning-bg: var(--color-warning-bg);
+  --color-warning-border: var(--color-warning-border);
+
+  /* Semantic names the Vengeance UI (shadcn) components use. */
+  --color-background: var(--color-bg-surface);
+  --color-foreground: var(--color-text-primary);
+  --color-border: var(--color-border-default);
+  --color-ring: var(--color-border-focus);
+
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-card: var(--shadow-card);
+  --shadow-card-hover: var(--shadow-card-hover);
+
+  --ease-default: var(--ease-default);
+}
+
+/* The Google fonts loaded by next/font are the tokens' Inter and Instrument Serif;
+   next/font registers them under generated family names exposed as these variables. */
+:root {
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  --font-mono: var(--font-inter), "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 640px) {
+  .display-hero {
+    font-size: 44px;
+  }
+}
+
+/* App-wide helpers built only from tokens. */
+.mono {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  word-break: break-all;
+}
+
+.btn-lg {
+  height: var(--btn-height-lg);
+  padding: 0 var(--btn-px-lg);
+  font-size: var(--text-base);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.badge-open { color: var(--color-success); background: var(--color-success-bg); border-color: var(--color-success-border); }
+.badge-broken { color: var(--color-danger-text); background: var(--color-danger-bg); border-color: var(--color-danger-border); }
+.badge-unclaimed { color: var(--color-tag-format-text); background: var(--color-tag-format-bg); border-color: var(--color-tag-format-border); }
+.badge-warning { color: var(--color-warning-text); background: var(--color-warning-bg); border-color: var(--color-warning-border); }
+
+.panel-warning { background: var(--color-warning-bg); border: 1px solid var(--color-warning-border); color: var(--color-warning-text); border-radius: var(--radius-md); padding: var(--space-4); }
+.panel-danger { background: var(--color-danger-bg); border: 1px solid var(--color-danger-border); color: var(--color-danger-text); border-radius: var(--radius-md); padding: var(--space-4); }
+.panel-success { background: var(--color-success-bg); border: 1px solid var(--color-success-border); color: var(--color-success); border-radius: var(--radius-md); padding: var(--space-4); }
+
+.table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+.table th { text-align: left; font-weight: var(--font-medium); color: var(--color-text-muted); font-size: var(--text-xs); letter-spacing: var(--tracking-wide); text-transform: uppercase; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--color-border-default); }
+.table td { padding: var(--space-3); border-bottom: 1px solid var(--color-border-muted); vertical-align: top; }
+
+/* Miter diagram pulse (landing page). */
+@keyframes miter-pulse {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -240; }
+}
+.miter-wire-pulse {
+  stroke-dasharray: 24 216;
+  animation: miter-pulse 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .miter-wire-pulse {
+    animation: none;
+    stroke-dasharray: none;
+    opacity: 0;
+  }
+}
+
+/* Spotlight Navbar (Vengeance UI) on the light pill: moss lights instead of its black/white defaults. */
+.tb-nav nav.spotlight-nav {
+  --spotlight-color: color-mix(in srgb, var(--color-moss) 12%, transparent);
+  --ambience-color: var(--color-moss);
+}
+.tb-nav nav.spotlight-nav a {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  padding-inline: var(--space-3);
+}
+.tb-nav nav.spotlight-nav a.text-black,
+.tb-nav nav.spotlight-nav a:hover {
+  color: var(--color-text-primary);
+}
+
+/* FAQ Accordion (Vengeance UI) restyled for the light surfaces. */
+.tb-faq li { border-color: var(--color-border-muted); }
+.tb-faq li button {
+  border-left-color: var(--color-border-default);
+  color: var(--color-text-secondary);
+  font-size: var(--text-md);
+}
+.tb-faq li button:hover {
+  border-left-color: var(--color-olive);
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+}
+.tb-faq li button[aria-expanded="true"] {
+  border-left-color: var(--color-moss);
+  color: var(--color-text-primary);
+  background: var(--color-bg-surface);
+}
+.tb-faq li button span { color: inherit; border-color: currentColor; }
+.tb-faq li button + div { border-left-color: var(--color-border-default); }
+.tb-faq li button[aria-expanded="true"] + div { border-left-color: var(--color-moss); background: var(--color-bg-surface); }
+.tb-faq li button + div > div > div { color: var(--color-text-secondary); font-size: var(--text-base); }
