@@ -266,26 +266,33 @@ export async function buildIndex(
         { address: p.circuits, abi: circuitsAbi, functionName: 'ownerOf', args: [id] },
       ]),
     );
-    const netlists = await rd(
-      ids.map(([p, id]) => ({ address: p.circuits, abi: circuitsAbi, functionName: 'netlist', args: [id] })),
-      INDEX.netlistBatch,
-    );
-    ids.forEach(([p, id], k) => {
-      const ci = info[2 * k] as readonly [number, number, number, number] | null;
-      const nl = netlists[k] as Hex | null;
-      const c: IndexedCircuit = {
-        id: id.toString(),
-        nIn: ci ? Number(ci[0]) : null,
-        nOut: ci ? Number(ci[1]) : null,
-        nState: ci ? Number(ci[2]) : null,
-        gateCount: ci ? Number(ci[3]) : null,
-        owner: (info[2 * k + 1] as Address) ?? null,
-        hash: nl ? keccak256(nl) : null,
-        size: nl ? (nl.length - 2) / 2 : null,
-      };
-      if (tapebook && nl && ci && p.circuits.toLowerCase() === tapebook.toLowerCase()) c.miterOf = miterOf(nl, Number(ci[0]), tapebook);
-      p.list.push(c);
-    });
+    for (let off = 0; off < ids.length; off += INDEX.netlistChunk) {
+      const slice = ids.slice(off, off + INDEX.netlistChunk);
+      const nls = await readMany(
+        client,
+        slice.map(([p, id]) => ({ address: p.circuits, abi: circuitsAbi, functionName: 'netlist', args: [id] })),
+        { blockNumber, batch: INDEX.netlistBatch, concurrency: INDEX.netlistConcurrency, errors },
+      );
+      slice.forEach(([p, id], j) => {
+        const k = off + j;
+        const ci = info[2 * k] as readonly [number, number, number, number] | null;
+        const nl = nls[j] as Hex | null;
+        const c: IndexedCircuit = {
+          id: id.toString(),
+          nIn: ci ? Number(ci[0]) : null,
+          nOut: ci ? Number(ci[1]) : null,
+          nState: ci ? Number(ci[2]) : null,
+          gateCount: ci ? Number(ci[3]) : null,
+          owner: (info[2 * k + 1] as Address) ?? null,
+          hash: nl ? keccak256(nl) : null,
+          size: nl ? (nl.length - 2) / 2 : null,
+        };
+        if (tapebook && nl && ci && p.circuits.toLowerCase() === tapebook.toLowerCase()) c.miterOf = miterOf(nl, Number(ci[0]), tapebook);
+        p.list.push(c);
+      });
+      // Release the dropped netlist strings between chunks; gc() is only present under --expose-gc.
+      (globalThis as { gc?: () => void }).gc?.();
+    }
     out.push({ label: f.label, address: f.address, cpuCount: str(cpuCount), processors });
   }
 
@@ -306,7 +313,6 @@ export async function buildIndex(
       }
     }
   }
-
   return {
     chainId,
     block: { number: blockNumber.toString(), timestamp: block.timestamp.toString() },

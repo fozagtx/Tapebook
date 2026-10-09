@@ -96,7 +96,11 @@ export const INDEX = {
   /** Calls per Multicall3 aggregate3 request. */
   batch: 200,
   /** Netlist reads return whole netlists, so they go in smaller batches. */
-  netlistBatch: 50,
+  netlistBatch: 25,
+  /** Circuits whose netlists are held in memory at once; each chunk is reduced to hash/size/miterOf and dropped before the next is read. */
+  netlistChunk: 400,
+  /** Parallel RPC requests during the netlist phase; lower than the general value because responses carry whole netlists. */
+  netlistConcurrency: 1,
   /** Parallel RPC requests while building the snapshot. */
   concurrency: 8,
 };

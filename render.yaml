@@ -22,6 +22,9 @@ services:
         value: "22"
       - key: NEXT_TELEMETRY_DISABLED
         value: "1"
+      # Render free tier is 512 MB; keep V8's heap below it so GC runs before the container is killed.
+      - key: NODE_OPTIONS
+        value: "--max-old-space-size=384"
       # X Layer mainnet addresses (contracts/deployments/196.json). These are also the defaults in
       # web/lib/config.ts; NEXT_PUBLIC_* values are baked in at build time, so redeploy after changing them.
       - key: NEXT_PUBLIC_CLAIMS_ADDRESS
