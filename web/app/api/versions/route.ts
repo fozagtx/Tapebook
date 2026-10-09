@@ -1,14 +1,13 @@
 // Version watcher: TapeOut logic in force, sealed flag, fees, Tapebook's conformance check and
-// the upgrade / seal / fee-change history from the chain's event logs. Rebuilt at most every 10 minutes.
+// the upgrade / seal / fee-change history from the chain's event logs. Cached at the edge for 10 minutes.
 import { serverClient } from '@/lib/chain';
 import { FACTORIES } from '@/lib/config';
 import { readVersions } from '@/lib/versions';
 
-export const revalidate = 600;
 export const maxDuration = 60;
-// Prerendered and revalidated as a whole; the RPC requests inside opt out of Next's fetch cache
-// (lib/chain.ts), which force-static allows without turning the route dynamic.
-export const dynamic = 'force-static';
+// Computed at request time, not at build: the log scan can exceed the 60 s static-generation
+// limit on a slow RPC, which would fail the whole build. Cache-Control carries the 10-minute TTL.
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const client = serverClient();
@@ -21,5 +20,8 @@ export async function GET() {
       }
     }),
   );
-  return Response.json({ builtAt: new Date().toISOString(), factories });
+  return Response.json(
+    { builtAt: new Date().toISOString(), factories },
+    { headers: { 'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=600' } },
+  );
 }
