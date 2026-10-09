@@ -1,0 +1,35 @@
+{
+  "name": "tapebook-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TapebookClaims, MiterLib and the vendored TapeOut source (Hardhat 2)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "compile": "hardhat compile && hardhat run scripts/export-abi.ts",
+    "test": "hardhat test",
+    "test:exhaustive": "EXHAUSTIVE=1 hardhat test",
+    "deploy:01": "hardhat run scripts/01-create-cpu.ts --network xlayer",
+    "deploy:02": "hardhat run scripts/02-tapeout-seeds.ts --network xlayer",
+    "deploy:03": "hardhat run scripts/03-deploy-claims.ts --network xlayer",
+    "deploy:04": "hardhat run scripts/04-seed-claims.ts --network xlayer",
+    "local:seed": "hardhat run scripts/local-seed.ts --network localhost"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "4.1.2",
+    "@openzeppelin/contracts": "5.6.1",
+    "@openzeppelin/contracts-upgradeable": "5.6.1",
+    "@types/chai": "^4.3.20",
+    "@types/chai-as-promised": "^7.1.8",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.10.0",
+    "chai": "^4.5.0",
+    "hardhat": "2.29.1",
+    "solc": "^0.8.24",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.8.3",
+    "viem": "^2.57.4"
+  }
+}
